@@ -10,17 +10,13 @@ namespace Alura.ListaLeitura.App
     {
         public void Configure(IApplicationBuilder app)
         {
-            var builder = new RouteBuilder(app);
-
-            builder.MapRoute("{classe}/{metodo}", RoteamentoPadrao.TratamentoPadrao);
-
-            var rotas = builder.Build();
-
-            app.UseRouter(rotas);
+            app.UseMvcWithDefaultRoute();
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
+
             services.AddRouting();
         }
     }

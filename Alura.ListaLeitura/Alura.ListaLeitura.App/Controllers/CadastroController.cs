@@ -8,7 +8,7 @@ using Alura.ListaLeitura.App.HTML;
 
 namespace Alura.ListaLeitura.App.Logica
 {
-    public static class CadastroLogica
+    public static class CadastroController
     {
         public static Task Incluir(HttpContext context)
         {

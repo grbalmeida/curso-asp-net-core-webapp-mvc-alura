@@ -10,7 +10,7 @@ using Alura.ListaLeitura.App.HTML;
 
 namespace Alura.ListaLeitura.App.Logica
 {
-    public static class LivrosLogica
+    public class LivrosController
     {
         public static Task Detalhes(HttpContext context)
         {
@@ -52,9 +52,9 @@ namespace Alura.ListaLeitura.App.Logica
             return context.Response.WriteAsync(ObterLivros(_repo.Lidos.Livros, conteudoArquivo));
         }
 
-        public static Task Teste(HttpContext context)
+        public string Teste()
         {
-            return context.Response.WriteAsync("Nova funcionalidade implementada!");
+            return "Nova funcionalidade implementada!";
         }
 
         private static string ObterLivros(IEnumerable<Livro> listaLivros, string conteudoArquivo)
