@@ -1,20 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
-using Microsoft.AspNetCore.Http;
+﻿using System.Linq;
 using Alura.ListaLeitura.App.Repositorio;
-using Alura.ListaLeitura.App.Negocio;
-using Alura.ListaLeitura.App.HTML;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Alura.ListaLeitura.App.Logica
 {
-    public class LivrosController
+    public class LivrosController : Controller
     {
+        private readonly LivroRepositorioCSV _repositorio;
+
+        public LivrosController(LivroRepositorioCSV repositorio)
+        {
+            _repositorio = repositorio;
+        }
+
         public string Detalhes(int id)
         {
-            var repo = new LivroRepositorioCSV();
-            var livro = repo.Todos.FirstOrDefault(l => l.Id == id);
+            var livro = _repositorio.Todos.FirstOrDefault(l => l.Id == id);
 
             if (livro == null)
             {
@@ -26,47 +27,25 @@ namespace Alura.ListaLeitura.App.Logica
 
         public IActionResult ParaLer()
         {
-            var _repo = new LivroRepositorioCSV();
-
-            var html = new ViewResult
-            {
-                ViewName = "lista"
-            };
-
-            return html;
+            ViewBag.Livros = _repositorio.ParaLer.Livros;
+            return View("lista");
         }
 
-        public static Task Lendo(HttpContext context)
+        public IActionResult Lendo()
         {
-            var conteudoArquivo = HtmlUtils.CarregaArquivoHTML("lendo");
-            var _repo = new LivroRepositorioCSV();
-
-            return context.Response.WriteAsync(ObterLivros(_repo.Lendo.Livros, conteudoArquivo));
+            ViewBag.Livros = _repositorio.Lendo.Livros;
+            return View("lista");
         }
 
-        public static Task Lidos(HttpContext context)
+        public IActionResult Lidos()
         {
-            var conteudoArquivo = HtmlUtils.CarregaArquivoHTML("lidos");
-            var _repo = new LivroRepositorioCSV();
-
-            return context.Response.WriteAsync(ObterLivros(_repo.Lidos.Livros, conteudoArquivo));
+            ViewBag.Livros = _repositorio.Lidos.Livros;
+            return View("lista");
         }
 
         public string Teste()
         {
             return "Nova funcionalidade implementada!";
-        }
-
-        private static string ObterLivros(IEnumerable<Livro> listaLivros, string conteudoArquivo)
-        {
-            var livros = "";
-
-            foreach (var livro in listaLivros)
-            {
-                livros += $"<li>{livro.Titulo} - {livro.Autor}</li>";
-            }
-
-            return conteudoArquivo.Replace("#NOVO-ITEM#", livros);
         }
     }
 }

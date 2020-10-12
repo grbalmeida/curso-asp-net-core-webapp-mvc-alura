@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
-using Alura.ListaLeitura.App.Logica;
-using Alura.ListaLeitura.App.Mvc;
+using Alura.ListaLeitura.App.Repositorio;
 
 namespace Alura.ListaLeitura.App
 {
@@ -17,6 +15,7 @@ namespace Alura.ListaLeitura.App
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddScoped<LivroRepositorioCSV>();
         }
     }
 }

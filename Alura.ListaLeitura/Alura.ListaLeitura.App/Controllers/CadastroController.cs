@@ -1,30 +1,28 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Alura.ListaLeitura.App.Repositorio;
+﻿using Alura.ListaLeitura.App.Repositorio;
 using Alura.ListaLeitura.App.Negocio;
-using Alura.ListaLeitura.App.HTML;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Alura.ListaLeitura.App.Logica
 {
-    public class CadastroController
+    public class CadastroController : Controller
     {
+        private readonly LivroRepositorioCSV _repositorio;
+
+        public CadastroController(LivroRepositorioCSV repositorio)
+        {
+            _repositorio = repositorio;
+        }
+
         public string Incluir(Livro livro)
         {
-            var repo = new LivroRepositorioCSV();
-            repo.Incluir(livro);
+            _repositorio.Incluir(livro);
 
             return "O livro foi adicionado com sucesso";
         }
 
         public IActionResult ExibeFormulario()
         {
-            var html = new ViewResult
-            {
-                ViewName = "formulario"
-            };
-
-            return html;
+            return View("formulario");
         }
     }
 }
