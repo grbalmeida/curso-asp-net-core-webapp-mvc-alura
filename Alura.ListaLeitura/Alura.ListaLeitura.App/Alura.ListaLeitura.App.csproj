@@ -19,16 +19,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="HTML\formulario.html">
+    <None Update="Views\formulario.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="HTML\lendo.html">
+    <None Update="Views\lendo.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="HTML\lidos.html">
+    <None Update="Views\lidos.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="HTML\para-ler.html">
+    <None Update="Views\para-ler.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Repositorio\livros.csv">
