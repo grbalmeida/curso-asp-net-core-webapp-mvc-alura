@@ -12,6 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="HtmlUtils.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="HTML\formulario.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
