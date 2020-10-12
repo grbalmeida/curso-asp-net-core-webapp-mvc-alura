@@ -123,20 +123,38 @@ namespace Alura.ListaLeitura.App
 
         public Task LivrosParaLer(HttpContext context)
         {
+            var conteudoArquivo = CarregaArquivoHTML("para-ler");
             var _repo = new LivroRepositorioCSV();
-            return context.Response.WriteAsync(_repo.ParaLer.ToString());
+
+            return context.Response.WriteAsync(ObterLivros(_repo.ParaLer.Livros, conteudoArquivo));
         }
 
         public Task LivrosLendo(HttpContext context)
         {
+            var conteudoArquivo = CarregaArquivoHTML("lendo");
             var _repo = new LivroRepositorioCSV();
-            return context.Response.WriteAsync(_repo.Lendo.ToString());
+
+            return context.Response.WriteAsync(ObterLivros(_repo.Lendo.Livros, conteudoArquivo));
         }
 
         public Task LivrosLidos(HttpContext context)
         {
+            var conteudoArquivo = CarregaArquivoHTML("lidos");
             var _repo = new LivroRepositorioCSV();
-            return context.Response.WriteAsync(_repo.Lidos.ToString());
+
+            return context.Response.WriteAsync(ObterLivros(_repo.Lidos.Livros, conteudoArquivo));
+        }
+
+        private string ObterLivros(IEnumerable<Livro> listaLivros, string conteudoArquivo)
+        {
+            var livros = "";
+
+            foreach (var livro in listaLivros)
+            {
+                livros += $"<li>{livro.Titulo} - {livro.Autor}</li>";
+            }
+
+            return conteudoArquivo.Replace("#NOVO-ITEM#", livros);
         }
     }
 }
