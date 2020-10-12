@@ -18,11 +18,29 @@ namespace Alura.ListaLeitura.App.Mvc
 
             var nomeCompleto = $"Alura.ListaLeitura.App.Logica.{classe}Logica";
 
-            var tipo = Type.GetType(classe);
+            var tipo = Type.GetType(nomeCompleto);
+
+            if (tipo == null)
+            {
+                return NotFound(context);
+            }
+
             var metodo = tipo.GetMethods().FirstOrDefault(m => m.Name == nomeMetodo);
+
+            if (metodo == null)
+            {
+                return NotFound(context);
+            }
+
             var requestDelegate = (RequestDelegate)Delegate.CreateDelegate(typeof(RequestDelegate), metodo);
 
             return requestDelegate.Invoke(context);
+        }
+
+        private static Task NotFound(HttpContext context)
+        {
+            context.Response.StatusCode = StatusCodes.Status404NotFound;
+            return context.Response.WriteAsync("Not found");
         }
     }
 }
