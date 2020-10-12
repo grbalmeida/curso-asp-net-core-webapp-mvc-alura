@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Alura.ListaLeitura.App.Repositorio;
 using Alura.ListaLeitura.App.Negocio;
 using Alura.ListaLeitura.App.HTML;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Alura.ListaLeitura.App.Logica
 {
@@ -23,12 +24,16 @@ namespace Alura.ListaLeitura.App.Logica
             return livro.Detalhes();
         }
 
-        public static Task ParaLer(HttpContext context)
+        public IActionResult ParaLer()
         {
-            var conteudoArquivo = HtmlUtils.CarregaArquivoHTML("para-ler");
             var _repo = new LivroRepositorioCSV();
 
-            return context.Response.WriteAsync(ObterLivros(_repo.ParaLer.Livros, conteudoArquivo));
+            var html = new ViewResult
+            {
+                ViewName = "lista"
+            };
+
+            return html;
         }
 
         public static Task Lendo(HttpContext context)
