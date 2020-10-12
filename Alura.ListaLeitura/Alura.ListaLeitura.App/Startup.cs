@@ -38,8 +38,8 @@ namespace Alura.ListaLeitura.App
         {
             var livro = new Livro
             {
-                Titulo = context.Request.Query["titulo"],
-                Autor = context.Request.Query["autor"]
+                Titulo = context.Request.Form["titulo"],
+                Autor = context.Request.Form["autor"]
             };
 
             var repo = new LivroRepositorioCSV();
